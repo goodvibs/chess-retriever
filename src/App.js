@@ -11,10 +11,6 @@ export default function App() {
 
     const [games, setGames] = React.useState([]);
 
-    function setGamesReversed() {
-        setGames(games.slice().reverse());
-    }
-
     function handleSearch(formEvent) {
         formEvent.preventDefault();
         //const advanced = formEvent.target.elements.;
@@ -51,7 +47,7 @@ export default function App() {
     return (
         <div className='flex flex-col items-center w-fit h-fit  p-2'>
             <Header searchFormSubmissionHandler={handleSearch} loading={loadingResults}/>
-            <Main games={games} resultsReverser={setGamesReversed} hidden={resultsHidden}/>
+            <Main games={games} hidden={resultsHidden}/>
         </div>
     );
 }

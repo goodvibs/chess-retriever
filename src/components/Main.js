@@ -2,7 +2,7 @@ import Results from "./Results";
 import React from "react";
 
 export default function Main(props) {
-    //const [results, setResults] = React.useState(<Results games={props.games}/>);
+    const [sortByRecent, setSortByRecent] = React.useState(true);
 
     let gameCountText;
     if (props.games.length === 0) {
@@ -21,15 +21,20 @@ export default function Main(props) {
                     {gameCountText}
                 </span>
                 <select hidden={props.games <= 1} onChange={(changeEvent) => {
-                    props.resultsReverser();
+                    if (changeEvent.target.value === 'recent') {
+                        setSortByRecent(true);
+                    }
+                    else {
+                        setSortByRecent(false);
+                    }
                 }}
                         className='p-1 rounded-xl bg-amber-300 text-teal-800 font-light outline-none text-md md:text-lg md:p-1.5 lg:text-xl lg:p-2'
-                        defaultValue='1'>
-                    <option value='1'>oldest first</option>
-                    <option value='2'>recent first</option>
+                        defaultValue='recent'>
+                    <option value='recent'>recent first</option>
+                    <option value='oldest'>oldest first</option>
                 </select>
             </div>
-            <div className='flex flex-col text-md gap-2 rounded-xl text-teal-800 md:text-lg lg:text-xl'>
+            <div className={'flex' + (sortByRecent ? ' flex-col-reverse ' : ' flex-col ') + 'text-md rounded-xl child:my-1 text-teal-800 md:text-lg lg:text-xl'}>
                 <Results games={props.games}/>
             </div>
         </div>

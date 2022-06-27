@@ -52,32 +52,31 @@ export default function Results(props) {
             iframe = (
                 <iframe src={'https://lichess.org/embed/' + lichessIDs[gameIndex] + '?theme=auto&bg=auto'} width='600'
                         height='397'
-                        className='rounded-xl hover:'></iframe>
+                        className='rounded-xl w-full h-60 md:h-96'></iframe>
             );
         }
 
         return (
-            <div
-                className='flex flex-col gap-6 bg-amber-300 rounded-xl p-5 items-center transition-colors duration-500'>
+            <div className='flex flex-col gap-6 bg-amber-300 rounded-xl p-5 items-center'>
                 <div className='flex gap-6 items-center'>
-                    <div className='flex flex-col items-center text-sm font-semibold'>
+                    <span className='flex flex-col items-center text-sm font-semibold'>
                         <div>
                             {months[game.endUTC.getMonth()] + ' ' + game.endUTC.getDate() + ','}
                         </div>
                         <div>
                             {game.endUTC.getFullYear()}
                         </div>
-                    </div>
-                    <div className='flex flex-col items-center text-sm font-semibold'>
+                    </span>
+                    <span className='flex flex-col items-center text-sm font-semibold'>
                         <div>
                             {game.timeControl.toString()}
                         </div>
                         <div>
                             {timeClasses[game.timeClass - 1]}
                         </div>
-                    </div>
-                    <div
-                        className='w-52 flex flex-wrap font-light md:inline md:flex-nowrap md:truncate md:w-100 lg:w-120'>
+                    </span>
+                    <span
+                        className='w-48 flex flex-wrap font-light md:inline md:flex-nowrap md:truncate md:w-100 lg:w-120'>
                         <span className='font-semibold'>{result}&nbsp;</span>
                         vs.&nbsp;
                         <a href={game.opponent.url} target='_blank' rel='noreferrer'
@@ -86,7 +85,7 @@ export default function Results(props) {
                         </a>
                         &nbsp;by&nbsp;
                         <span className='font-semibold'>{terminationCauses[game.terminationCause - 1]}&nbsp;</span>
-                    </div>
+                    </span>
                     <button type='button' onClick={mouseEvent => {
                         mouseEvent.preventDefault();
                         const urlSearchParams = new URLSearchParams({
@@ -97,13 +96,6 @@ export default function Results(props) {
                             body: urlSearchParams
                         }).then(response => {
                             //response.json().then((data) => window.open(data['url'], '_blank'));
-                            /*response.json().then((data) => {
-                                let container = document.getElementById('iframe-container-' + index);
-                                container.innerHTML = ReactDOMServer.renderToString(
-                                    <iframe src={'https://lichess.org/embed/' + data['id'] + '?theme=auto&bg=auto'} width='600' height='397'
-                                    className='rounded-xl'></iframe>
-                                );
-                            });*/
                             response.json().then((data) => {
                                 setLichessIDs(prevLichessIDs => {
                                     let temp = {...prevLichessIDs};
