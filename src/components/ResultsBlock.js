@@ -1,7 +1,7 @@
 import Results from "./Results";
 import React from "react";
 
-export default function Main(props) {
+export default function ResultsBlock(props) {
     const [sortByRecent, setSortByRecent] = React.useState(true);
 
     let gameCountText;

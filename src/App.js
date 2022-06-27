@@ -1,13 +1,13 @@
 import React from 'react';
-import Header from './components/Header';
+import SearchBlock from './components/SearchBlock';
 import {Game, getGamesByMonth, isValidUsername, YearMonth} from "./utils"
-import Main from "./components/Main";
+import ResultsBlock from "./components/ResultsBlock";
 
 export default function App() {
 
     const [loadingResults, setLoading] = React.useState(false);
 
-    const [resultsHidden, setResultsHidden] = React.useState(true);
+    const [isInInitialState, setIsInInitialState] = React.useState(true);
 
     const [games, setGames] = React.useState([]);
 
@@ -19,7 +19,7 @@ export default function App() {
             return;
         }
 
-        setResultsHidden(true);
+        setIsInInitialState(true);
         setLoading(true);
 
         const month = parseInt(formEvent.target.elements.month.value);
@@ -35,19 +35,19 @@ export default function App() {
         });
         getGamesByMonth(username, new YearMonth(year, month), allowedTimeClasses).then(res => {
             setGames(res);
-            setResultsHidden(false);
+            setIsInInitialState(false);
             setLoading(false);
         }).catch(() => {
             setGames([]);
-            setResultsHidden(false);
+            setIsInInitialState(false);
             setLoading(false);
         });
     }
 
     return (
-        <div className='flex flex-col items-center w-fit h-fit  p-2'>
-            <Header searchFormSubmissionHandler={handleSearch} loading={loadingResults}/>
-            <Main games={games} hidden={resultsHidden}/>
+        <div className='flex flex-col items-center p-2'>
+            <SearchBlock searchFormSubmissionHandler={handleSearch} expanded={isInInitialState} loading={loadingResults}/>
+            <ResultsBlock games={games} hidden={isInInitialState}/>
         </div>
     );
 }
