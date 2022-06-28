@@ -1,3 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.lichess-btn {
+    font-family: "Noto Sans", sans-serif;
+    text-shadow: 0 1px 0 #fff;
+    color: #4d4d4d;
+    background-color: #edebe9;
+}
+
+.lichess-btn span {
+    color: #787878;
+}
+
+.lichess-btn:hover {
+    color: #1b78d0;
+    background-color: #ddebe9;
+}
+
+.lichess-btn:hover span {
+    color: #1b78d0;
+}
+
+.lichess-btn:disabled {
+    color: #4d4d4d;
+    background-color: white;
+}
+
+.lichess-btn:disabled span {
+    color: #4d4d4d;
+}

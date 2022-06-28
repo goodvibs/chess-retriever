@@ -11,21 +11,27 @@ export default function App() {
 
     const [games, setGames] = React.useState([]);
 
+    const [lichessIDs, setLichessIDs] = React.useState({});
+
+    function addLichessID(gameIndex, lichessID) {
+        setLichessIDs(prevLichessIDs => {
+            let temp = {...prevLichessIDs};
+            temp[gameIndex] = lichessID;
+            return temp;
+        });
+    }
+
     function handleSearch(formEvent) {
         formEvent.preventDefault();
-        //const advanced = formEvent.target.elements.;
+        setLichessIDs({});
         const username = formEvent.target.elements.username.value;
         if (!isValidUsername(username)) {
             return;
         }
-
         setIsInInitialState(true);
         setLoading(true);
-
         const month = parseInt(formEvent.target.elements.month.value);
         const year = parseInt(formEvent.target.elements.year.value);
-        //const since = new YearMonth(...formEvent.target.elements.from.value.split('-').map(x => parseInt(x)));
-        //const until = new YearMonth(...formEvent.target.elements.to.value.split('-').map(x => parseInt(x)));
         const timeClasses = [Game.TIME_CLASSES.BULLET, Game.TIME_CLASSES.BLITZ, Game.TIME_CLASSES.RAPID, Game.TIME_CLASSES.DAILY];
         let allowedTimeClasses = [];
         [formEvent.target.elements.bullet.checked, formEvent.target.elements.blitz.checked, formEvent.target.elements.rapid.checked, formEvent.target.elements.daily.checked].forEach((allowed, index) => {
@@ -47,7 +53,7 @@ export default function App() {
     return (
         <div className='flex flex-col items-center p-2'>
             <SearchBlock searchFormSubmissionHandler={handleSearch} expanded={isInInitialState} loading={loadingResults}/>
-            <ResultsBlock games={games} hidden={isInInitialState}/>
+            <ResultsBlock games={games} hidden={isInInitialState} lichessIDs={lichessIDs} lichessIDAdder={addLichessID}/>
         </div>
     );
 }

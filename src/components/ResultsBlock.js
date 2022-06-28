@@ -34,8 +34,8 @@ export default function ResultsBlock(props) {
                     <option value='oldest'>oldest first</option>
                 </select>
             </div>
-            <div className={'flex' + (sortByRecent ? ' flex-col-reverse ' : ' flex-col ') + 'text-md rounded-xl child:my-1 text-teal-800 md:text-lg lg:text-xl'}>
-                <Results games={props.games}/>
+            <div className={'flex' + (sortByRecent ? ' flex-col-reverse ' : ' flex-col ')}>
+                <Results games={props.games} lichessIDs={props.lichessIDs} lichessIDAdder={props.lichessIDAdder}/>
             </div>
         </div>
     );

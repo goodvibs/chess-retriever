@@ -2,7 +2,6 @@ import React from "react";
 import {Game} from "../utils";
 
 export default function Results(props) {
-    const [lichessIDs, setLichessIDs] = React.useState({});
     return props.games.map((game, gameIndex) => {
         const months = [
             'Jan',
@@ -26,11 +25,11 @@ export default function Results(props) {
         ];
         let result;
         if (game.result === Game.RESULT.DRAW) {
-            result = 'drew';
+            result = 'draw';
         } else if ((game.result === Game.RESULT.WHITE_WON && game.playerWhite === true) || (game.result === Game.RESULT.BLACK_WON && game.playerWhite === false)) {
-            result = 'won';
+            result = 'win';
         } else if ((game.result === Game.RESULT.WHITE_WON && game.playerWhite === false) || (game.result === Game.RESULT.BLACK_WON && game.playerWhite === true)) {
-            result = 'lost';
+            result = 'loss';
         } else {
             throw Error;
         }
@@ -48,18 +47,18 @@ export default function Results(props) {
         ];
 
         let iframe = <></>;
-        if (gameIndex in lichessIDs) {
+        if (gameIndex in props.lichessIDs) {
             iframe = (
-                <iframe src={'https://lichess.org/embed/' + lichessIDs[gameIndex] + '?theme=auto&bg=auto'} width='600'
+                <iframe src={'https://lichess.org/embed/' + props.lichessIDs[gameIndex] + '?theme=auto&bg=auto'} width='600'
                         height='397'
                         className='rounded-xl w-full h-60 md:h-96'></iframe>
             );
         }
 
         return (
-            <div className='flex flex-col gap-6 bg-amber-300 rounded-xl p-5 items-center'>
-                <div className='flex gap-6 items-center'>
-                    <span className='flex flex-col items-center text-sm font-semibold'>
+            <div className='flex flex-col gap-5 bg-amber-300 rounded-xl p-5 my-1 items-center'>
+                <div className='flex items-center'>
+                    <span className='flex flex-col w-16 items-center text-sm font-semibold'>
                         <div>
                             {months[game.endUTC.getMonth()] + ' ' + game.endUTC.getDate() + ','}
                         </div>
@@ -67,7 +66,7 @@ export default function Results(props) {
                             {game.endUTC.getFullYear()}
                         </div>
                     </span>
-                    <span className='flex flex-col items-center text-sm font-semibold'>
+                    <span className='flex flex-col w-16 items-center text-sm font-semibold'>
                         <div>
                             {game.timeControl.toString()}
                         </div>
@@ -75,18 +74,40 @@ export default function Results(props) {
                             {timeClasses[game.timeClass - 1]}
                         </div>
                     </span>
-                    <span
-                        className='w-48 flex flex-wrap font-light md:inline md:flex-nowrap md:truncate md:w-100 lg:w-120'>
-                        <span className='font-semibold'>{result}&nbsp;</span>
-                        vs.&nbsp;
-                        <a href={game.opponent.url} target='_blank' rel='noreferrer'
-                           className='font-bold text-blue-600 hover:text-blue-500 hover:no-underline'>
-                            {game.opponent.username}
-                        </a>
-                        &nbsp;by&nbsp;
-                        <span className='font-semibold'>{terminationCauses[game.terminationCause - 1]}&nbsp;</span>
+                    <div className='flex flex-col items-start ml-2 w-52 text-lg font-bold'>
+                            <span className='flex flex-nowrap items-center gap-2'>
+                                <svg width='12' height='12'>
+                                    <rect width='12' height='12' rx='4' ry='4' className={game.white.username === game.player.username ? 'fill-white ' : 'fill-black '}></rect>
+                                </svg>
+                                <a href={game.player.url} target='_blank' rel='noreferrer' className='flex flex-nowrap items-center hover:text-blue-500'>
+                                    <span className='max-w-32 truncate'>{game.player.username}</span>
+                                    &nbsp;
+                                    <span className='text-sm font-semibold'>{`(${game.player.rating})`}</span>
+                                </a>
+                            </span>
+                        <span className='flex flex-nowrap items-center gap-2'>
+                                <svg width='12' height='12'>
+                                    <rect width='12' height='12' rx='4' ry='4' className={game.white.username === game.opponent.username ? 'fill-white ' : 'fill-black '}></rect>
+                                </svg>
+                                <a href={game.opponent.url} target='_blank' rel='noreferrer' className='flex flex-nowrap items-center hover:text-blue-500'>
+                                    <span className='max-w-32 truncate'>{game.opponent.username}</span>
+                                    &nbsp;
+                                    <span className='text-sm font-semibold'>{`(${game.opponent.rating})`}</span>
+                                </a>
+                            </span>
+                    </div>
+
+                    <span className='flex text-md font-light justify-center w-16 mr-2 md:w-48 md:justify-start md:ml-2 md:mr-0'>
+                        <a href={game.url} target='_blank' rel='noreferrer' className='hover:text-blue-500'>
+                        <span className='font-semibold'>{result}</span>
+                        <span className='hidden md:inline'>
+                            &nbsp;by&nbsp;
+                            <span className=''>{terminationCauses[game.terminationCause - 1]}</span>
+                        </span>
+                    </a>
                     </span>
-                    <button type='button' onClick={mouseEvent => {
+
+                    <button type='button' disabled={gameIndex in props.lichessIDs} onClick={mouseEvent => {
                         mouseEvent.preventDefault();
                         const urlSearchParams = new URLSearchParams({
                             pgn: game.pgn
@@ -95,19 +116,11 @@ export default function Results(props) {
                             method: 'POST',
                             body: urlSearchParams
                         }).then(response => {
-                            //response.json().then((data) => window.open(data['url'], '_blank'));
-                            response.json().then((data) => {
-                                setLichessIDs(prevLichessIDs => {
-                                    let temp = {...prevLichessIDs};
-                                    temp[gameIndex] = data['id'];
-                                    return temp;
-                                });
-                            })
+                            response.json().then((data) => props.lichessIDAdder(gameIndex, data['id']));
                         });
-                        mouseEvent.target.disabled = true;
-                    }}
-                            className='bg-teal-800 text-white font-semibold text-sm p-2 px-4 rounded-full hover:bg-teal-900 disabled:opacity-100 disabled:bg-black disabled:bg-opacity-30'>
+                    }} className='lichess-btn text-sm p-1 px-3 rounded-full disabled:opacity-40'>
                         lichess
+                        <span>.org</span>
                     </button>
                 </div>
                 {iframe}
