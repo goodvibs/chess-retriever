@@ -97,7 +97,7 @@ export default function Results(props) {
                             </span>
                     </div>
 
-                    <span className='flex text-md font-light justify-center w-16 mr-2 md:w-48 md:justify-start md:ml-2 md:mr-0'>
+                    <span className='flex text-lg font-light justify-center w-16 mr-2 md:w-48 md:justify-start md:ml-2 md:mr-0'>
                         <a href={game.url} target='_blank' rel='noreferrer' className='hover:text-blue-500'>
                         <span className='font-semibold'>{result}</span>
                         <span className='hidden md:inline'>

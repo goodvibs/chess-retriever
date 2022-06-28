@@ -1,7 +1,7 @@
 import React from 'react';
 import {YearMonth} from "../utils";
 
-export default function AdvancedSearchForm(props) {
+export default function SearchForm(props) {
 
     const [advancedVisible, setAdvancedVisibility] = React.useState(false);
 
