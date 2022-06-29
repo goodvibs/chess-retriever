@@ -28,7 +28,6 @@ export default function App() {
         if (!isValidUsername(username)) {
             return;
         }
-        setIsInInitialState(true);
         setLoading(true);
         const month = parseInt(formEvent.target.elements.month.value);
         const year = parseInt(formEvent.target.elements.year.value);

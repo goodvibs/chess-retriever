@@ -70,7 +70,7 @@ export default function SearchForm(props) {
 
                         </div>
                         <button type='button' className='peer group text-gray-600 z-20 w-4 h-fit rounded-full md:w-5 lg:w-6 transition-all duration-500' onClick={toggleAdvanced}>
-                            <svg viewBox='0 0 64 64' className='relative fill-teal-800 group-hover:rotate-45 ease-in-out duration-500'>
+                            <svg viewBox='0 0 64 64' className='fill-teal-800 hover:rotate-45 ease-in-out duration-500'>
                                 <path d="m24 0v6.78a26.47 26.47 0 0 0-4.17 1.74l-4.8-4.8-11.31 11.31 4.79 4.79a26.47 26.47 0 0 0-1.71 4.18h-6.8v16h6.78a26.47 26.47 0 0 0 1.74 4.17l-4.8 4.81 11.31 11.31 4.79-4.79a26.47 26.47 0 0 0 4.18 1.71v6.8h16v-6.78a26.47 26.47 0 0 0 4.17-1.74l4.8 4.8 11.31-11.31-4.79-4.79a26.47 26.47 0 0 0 1.71-4.18h6.8v-16h-6.78a26.47 26.47 0 0 0-1.74-4.17l4.81-4.8-11.31-11.31-4.79 4.79a26.47 26.47 0 0 0-4.18-1.71v-6.8h-16zm8 19a13 13 0 0 1 13 13 13 13 0 0 1-13 13 13 13 0 0 1-13-13 13 13 0 0 1 13-13z"/>
                             </svg>
                         </button>

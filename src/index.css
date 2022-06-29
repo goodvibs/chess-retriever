@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.stop-wiggling {
+    -webkit-transform:translate3d(0, 0, 0);
+    -webkit-transform-style: preserve-3d;
+}
+
 .lichess-btn {
     font-family: "Noto Sans", sans-serif;
     text-shadow: 0 1px 0 #fff;
