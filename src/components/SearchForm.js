@@ -74,7 +74,7 @@ export default function SearchForm(props) {
                                 <path d="m24 0v6.78a26.47 26.47 0 0 0-4.17 1.74l-4.8-4.8-11.31 11.31 4.79 4.79a26.47 26.47 0 0 0-1.71 4.18h-6.8v16h6.78a26.47 26.47 0 0 0 1.74 4.17l-4.8 4.81 11.31 11.31 4.79-4.79a26.47 26.47 0 0 0 4.18 1.71v6.8h16v-6.78a26.47 26.47 0 0 0 4.17-1.74l4.8 4.8 11.31-11.31-4.79-4.79a26.47 26.47 0 0 0 1.71-4.18h6.8v-16h-6.78a26.47 26.47 0 0 0-1.74-4.17l4.81-4.8-11.31-11.31-4.79 4.79a26.47 26.47 0 0 0-4.18-1.71v-6.8h-16zm8 19a13 13 0 0 1 13 13 13 13 0 0 1-13 13 13 13 0 0 1-13-13 13 13 0 0 1 13-13z"/>
                             </svg>
                         </button>
-                        <div className='flex invisible items-center opacity-0 z-10 select-none cursor-default text-xs scale-75 md:scale-100 lg:text-md peer-hover:visible peer-hover:opacity-100 peer-hover:translate-x-2 transition-all duration-500'>
+                        <div className='flex invisible items-center opacity-0 z-10 select-none cursor-default text-xs scale-75 md:scale-100 lg:text-base peer-hover:visible peer-hover:opacity-100 peer-hover:translate-x-2 transition-all duration-500'>
                             <div className='absolute -ml-2'>
                                 {getAdvancedBtnText()}
                             </div>
