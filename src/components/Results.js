@@ -49,9 +49,10 @@ export default function Results(props) {
         let iframe = <></>;
         if (gameIndex in props.lichessIDs) {
             iframe = (
-                <iframe src={'https://lichess.org/embed/' + props.lichessIDs[gameIndex] + '?theme=auto&bg=auto'} width='600'
+                <iframe title={`${game.player.username} vs. ${game.opponent.username}`} src={'https://lichess.org/embed/' + props.lichessIDs[gameIndex] + '?theme=auto&bg=auto'} width='600'
                         height='397'
-                        className='rounded-xl w-full h-60 md:h-96'></iframe>
+                        className='rounded-xl w-full h-60 md:h-96'>
+                </iframe>
             );
         }
 

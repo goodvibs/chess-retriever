@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBlock from './components/SearchBlock';
 import {Game, getGamesByMonth, isValidUsername, YearMonth} from "./utils"
 import ResultsBlock from "./components/ResultsBlock";
+import ReactGA from "react-ga";
 
 export default function App() {
 
@@ -31,6 +32,7 @@ export default function App() {
         setLoading(true);
         const month = parseInt(formEvent.target.elements.month.value);
         const year = parseInt(formEvent.target.elements.year.value);
+        const yearMonth = new YearMonth(year, month);
         const timeClasses = [Game.TIME_CLASSES.BULLET, Game.TIME_CLASSES.BLITZ, Game.TIME_CLASSES.RAPID, Game.TIME_CLASSES.DAILY];
         let allowedTimeClasses = [];
         [formEvent.target.elements.bullet.checked, formEvent.target.elements.blitz.checked, formEvent.target.elements.rapid.checked, formEvent.target.elements.daily.checked].forEach((allowed, index) => {
@@ -38,7 +40,14 @@ export default function App() {
                 allowedTimeClasses.push(timeClasses[index]);
             }
         });
-        getGamesByMonth(username, new YearMonth(year, month), allowedTimeClasses).then(res => {
+
+        ReactGA.event({
+            category: 'Search',
+            action: 'Submitted the "retrieve games" form',
+            label: `Retrieved games with the following parameters: {username: ${username}, yearMonth: ${yearMonth.toString()}, timeClasses: ${allowedTimeClasses.toString()}}`
+        });
+
+        getGamesByMonth(username, yearMonth, allowedTimeClasses).then(res => {
             setGames(res);
             setIsInInitialState(false);
             setLoading(false);

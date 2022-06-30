@@ -1,11 +1,24 @@
-class InvalidYearMonthError extends Error {
+import ReactGA from 'react-ga'
+
+class BaseError extends Error {
+    constructor(message) {
+        super(message);
+        ReactGA.exception({
+            description: message,
+            fatal: false
+        });
+        this.name = 'BaseError';
+    }
+}
+
+class InvalidYearMonthError extends BaseError {
     constructor(message) {
         super(message);
         this.name = 'YearMonthError';
     }
 }
 
-class InvalidGameAttrValueError extends Error {
+class InvalidGameAttrValueError extends BaseError {
     constructor(message) {
         super(message);
         this.name = 'InvalidGameAttrValueError';
@@ -181,7 +194,7 @@ export class PlayerGame extends Game {
     }
 }
 
-class InvalidResponseError extends Error {
+class InvalidResponseError extends BaseError {
     constructor(message) {
         super(message);
         this.name = 'InvalidResponseError';
@@ -202,14 +215,14 @@ export function isValidUsername(username) {
     return re.test(username);
 }
 
-class InvalidUsernameError extends Error {
+class InvalidUsernameError extends BaseError {
     constructor(message) {
         super(message);
         this.name = 'InvalidUsernameError';
     }
 }
 
-class InvalidDateError extends Error {
+class InvalidDateError extends BaseError {
     constructor(message) {
         super(message);
         this.name = 'InvalidDateError';
