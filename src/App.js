@@ -8,7 +8,7 @@ export default function App() {
 
     const TRACKING_ID = 'UA-233253201-1';
     ReactGA.initialize(TRACKING_ID);
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    //ReactGA.pageview(window.location.pathname + window.location.search);
 
     const [loadingResults, setLoading] = React.useState(false);
 
