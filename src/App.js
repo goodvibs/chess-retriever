@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import SearchBlock from './components/SearchBlock';
 import {Game, getGamesByMonth, isValidUsername, YearMonth} from "./utils"
 import ResultsBlock from "./components/ResultsBlock";
 import ReactGA from "react-ga";
 
 export default function App() {
+
+    useEffect(() => {
+        ReactGA.pageview(window.location.pathname);
+    });
 
     const [loadingResults, setLoading] = React.useState(false);
 

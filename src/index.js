@@ -7,7 +7,6 @@ import ReactGA from 'react-ga';
 
 const TRACKING_ID = 'UA-233253201-1';
 ReactGA.initialize(TRACKING_ID);
-// ReactGA.pageview(window.location.pathname + window.location.search);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,7 +18,7 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals((id, name, value) => {
+function sendToAnalytics({id, name, value}) {
     ReactGA.ga('send', 'event', {
         eventCategory: 'Web Vitals',
         eventAction: name,
@@ -27,4 +26,6 @@ reportWebVitals((id, name, value) => {
         eventLabel: id, // id unique to current page load
         nonInteraction: true, // avoids affecting bounce rate
     });
-});
+}
+
+reportWebVitals(sendToAnalytics);
