@@ -49,53 +49,50 @@ export default function Results(props) {
         let iframe = <></>;
         if (gameIndex in props.lichessIDs) {
             iframe = (
-                <iframe title={`${game.player.username} vs. ${game.opponent.username}`} src={'https://lichess.org/embed/' + props.lichessIDs[gameIndex] + '?theme=auto&bg=auto'} width='600'
-                        height='397'
-                        className='rounded-xl w-full h-60 md:h-96'>
+                <iframe title={`${game.player.username} vs. ${game.opponent.username}`} src={'https://lichess.org/embed/' + props.lichessIDs[gameIndex] + '?theme=auto&bg=auto'}
+                        className='rounded-2xl w-full h-96'>
                 </iframe>
             );
         }
 
         return (
-            <div className='flex flex-col gap-5 bg-amber-300 rounded-xl p-5 my-1 items-center'>
-                <div className='flex items-center'>
-                    <span className='flex flex-col w-16 items-center text-sm font-semibold'>
+            <div className='flex flex-col gap-5 bg-amber-300 rounded-2xl w-full p-3 my-1 items-center'>
+                <div className='flex w-full items-center justify-around'>
+                    <span className='flex justify-around'>
+                        <span className='flex flex-col w-16 items-center text-sm font-semibold'>
                         <div>
                             {months[game.endUTC.getMonth()] + ' ' + game.endUTC.getDate() + ','}
                         </div>
                         <div>
                             {game.endUTC.getFullYear()}
                         </div>
-                    </span>
-                    <span className='flex flex-col w-16 items-center text-sm font-semibold'>
-                        <div>
-                            {game.timeControl.toString()}
-                        </div>
-                        <div>
-                            {timeClasses[game.timeClass - 1]}
-                        </div>
+                        </span>
+                        <span className='flex flex-col w-16 items-center text-sm font-semibold'>
+                            <div>
+                                {game.timeControl.toString()}
+                            </div>
+                            <div>
+                                {timeClasses[game.timeClass - 1]}
+                            </div>
+                        </span>
                     </span>
                     <div className='flex flex-col items-start ml-2 w-52 text-lg font-bold'>
-                            <span className='flex flex-nowrap items-center gap-2'>
-                                <svg width='12' height='12'>
-                                    <rect width='12' height='12' rx='4' ry='4' className={game.white.username === game.player.username ? 'fill-white ' : 'fill-black '}></rect>
-                                </svg>
-                                <a href={game.player.url} target='_blank' rel='noreferrer' className='flex flex-nowrap items-center hover:text-blue-500'>
-                                    <span className='max-w-32 truncate'>{game.player.username}</span>
-                                    &nbsp;
-                                    <span className='text-sm font-semibold'>{`(${game.player.rating})`}</span>
-                                </a>
-                            </span>
                         <span className='flex flex-nowrap items-center gap-2'>
-                                <svg width='12' height='12'>
-                                    <rect width='12' height='12' rx='4' ry='4' className={game.white.username === game.opponent.username ? 'fill-white ' : 'fill-black '}></rect>
-                                </svg>
-                                <a href={game.opponent.url} target='_blank' rel='noreferrer' className='flex flex-nowrap items-center hover:text-blue-500'>
-                                    <span className='max-w-32 truncate'>{game.opponent.username}</span>
-                                    &nbsp;
-                                    <span className='text-sm font-semibold'>{`(${game.opponent.rating})`}</span>
-                                </a>
-                            </span>
+                            <span className={(game.white.username === game.player.username ? 'bg-white ' : 'bg-black ') + 'w-3 h-3 rounded-2xl'}></span>
+                            <a href={game.player.url} target='_blank' rel='noreferrer' className='flex flex-nowrap items-center hover:text-blue-500'>
+                                <span className='max-w-32 truncate'>{game.player.username}</span>
+                                &nbsp;
+                                <span className='text-sm font-semibold'>{`(${game.player.rating})`}</span>
+                            </a>
+                        </span>
+                        <span className='flex flex-nowrap items-center gap-2'>
+                            <span className={(game.white.username === game.opponent.username ? 'bg-white ' : 'bg-black ') + 'w-3 h-3 rounded-2xl'}></span>
+                            <a href={game.opponent.url} target='_blank' rel='noreferrer' className='flex flex-nowrap items-center hover:text-blue-500'>
+                                <span className='max-w-32 truncate'>{game.opponent.username}</span>
+                                &nbsp;
+                                <span className='text-sm font-semibold'>{`(${game.opponent.rating})`}</span>
+                            </a>
+                        </span>
                     </div>
 
                     <span className='flex text-lg font-light justify-center w-16 mr-2 md:w-48 md:justify-start md:ml-2 md:mr-0'>
@@ -119,7 +116,7 @@ export default function Results(props) {
                         }).then(response => {
                             response.json().then((data) => props.lichessIDAdder(gameIndex, data['id']));
                         });
-                    }} className='lichess-btn text-sm p-1 px-3 rounded-full disabled:opacity-40'>
+                    }} className='lichess-btn text-sm p-1 px-3 rounded-2xl disabled:opacity-40'>
                         lichess
                         <span>.org</span>
                     </button>

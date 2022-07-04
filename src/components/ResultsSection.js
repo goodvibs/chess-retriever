@@ -1,7 +1,7 @@
 import Results from "./Results";
 import React from "react";
 
-export default function ResultsBlock(props) {
+export default function ResultsSection(props) {
     const [sortByRecent, setSortByRecent] = React.useState(true);
 
     let gameCountText;
@@ -14,10 +14,10 @@ export default function ResultsBlock(props) {
     }
 
     return (
-        <div hidden={props.hidden}>
+        <div hidden={props.hidden} className='w-full'>
             <div className='flex justify-center items-center whitespace-nowrap'>
                 <span
-                    className='flex justify-center font-light text-base p-3 rounded-xl text-teal-800 md:text-lg md:p-4 lg:text-xl lg:p-5'>
+                    className='flex justify-center font-light rounded-xl text-teal-800 text-xl p-5'>
                     {gameCountText}
                 </span>
                 <select hidden={props.games <= 1} onChange={(changeEvent) => {
@@ -28,13 +28,13 @@ export default function ResultsBlock(props) {
                         setSortByRecent(false);
                     }
                 }}
-                        className='p-1 rounded-xl bg-amber-300 text-teal-800 font-light outline-none text-base md:text-lg md:p-1.5 lg:text-xl lg:p-2'
+                        className='rounded-2xl bg-amber-300 text-teal-800 font-light outline-none text-xl px-2 py-1'
                         defaultValue='recent'>
                     <option value='recent'>recent first</option>
                     <option value='oldest'>oldest first</option>
                 </select>
             </div>
-            <div className={'flex' + (sortByRecent ? ' flex-col-reverse ' : ' flex-col ')}>
+            <div className={'flex w-full' + (sortByRecent ? ' flex-col-reverse ' : ' flex-col ')}>
                 <Results games={props.games} lichessIDs={props.lichessIDs} lichessIDAdder={props.lichessIDAdder}/>
             </div>
         </div>

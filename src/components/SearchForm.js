@@ -18,8 +18,8 @@ export default function SearchForm(props) {
 
     const timeClasses = ['bullet', 'blitz', 'rapid', 'daily'];
     const timeClassCheckboxes = timeClasses.map(timeClass => (
-        <label className='flex items-center align-middle md:gap-1 lg:gap-2'>
-            <input type='checkbox' defaultChecked name={timeClass} className='scale-100 md:scale-125 lg:scale-150'/>
+        <label className='flex items-baseline'>
+            <input type='checkbox' defaultChecked name={timeClass}/>
             &nbsp;{timeClass}
         </label>
     ));
@@ -47,12 +47,12 @@ export default function SearchForm(props) {
             <div className='flex'>
                 <form onSubmit={props.searchFormSubmissionHandler} className='block'>
                     <div className='inline-flex gap-3 w-fit items-center'>
-                        <div className='inline-flex items-center rounded-full whitespace-nowrap'>
+                        <div className='inline-flex items-center rounded-2xl whitespace-nowrap'>
                             <label>
-                                <input type='text' minLength='3' maxLength='20' spellCheck='false' autoCapitalize='false' autoCorrect='false' name='username' className='flex w-fit h-fit whitespace-nowrap p-2 bg-white text-sm rounded-l-full outline-none md:p-2.5 md:text-lg lg:p-3 lg:text-xl transition-all duration-500' placeholder='Chess.com username'/>
+                                <input type='text' minLength='3' maxLength='20' spellCheck='false' autoCapitalize='false' autoCorrect='false' name='username' className='flex w-fit h-fit whitespace-nowrap bg-white rounded-l-2xl outline-none p-3 text-xl transition-all duration-500' placeholder='Chess.com username'/>
                             </label>
-                            <div className='bg-teal-800 hover:bg-teal-900 rounded-r-full'>
-                                <button type='submit' disabled={props.loading} className='flex justify-center font-light w-32 h-fit whitespace-nowrap p-2 text-white text-sm outline-none rounded-r-full md:p-2.5 md:text-lg md:w-40 lg:p-3 lg:text-xl lg:w-44 transition-all duration-500'>
+                            <div className='bg-teal-800 hover:bg-teal-900 rounded-r-2xl'>
+                                <button type='submit' disabled={props.loading} className='flex justify-center font-light h-fit whitespace-nowrap text-white outline-none rounded-r-2xl p-3 text-xl w-44 transition-all duration-500'>
                                 <span hidden={!props.loading}>
                                     <svg role="status"
                                          className="flex w-6 h-6 animate-spin fill-white"
@@ -69,18 +69,18 @@ export default function SearchForm(props) {
                             </div>
 
                         </div>
-                        <button type='button' className='peer group text-gray-600 z-20 w-4 h-fit rounded-full md:w-5 lg:w-6 transition-all duration-500' onClick={toggleAdvanced}>
+                        <button type='button' className='peer group text-gray-600 z-20 h-fit rounded-full w-6 transition-all duration-500' onClick={toggleAdvanced}>
                             <svg viewBox='0 0 64 64' className='fill-teal-800 hover:rotate-45 ease-in-out duration-500'>
                                 <path d="m24 0v6.78a26.47 26.47 0 0 0-4.17 1.74l-4.8-4.8-11.31 11.31 4.79 4.79a26.47 26.47 0 0 0-1.71 4.18h-6.8v16h6.78a26.47 26.47 0 0 0 1.74 4.17l-4.8 4.81 11.31 11.31 4.79-4.79a26.47 26.47 0 0 0 4.18 1.71v6.8h16v-6.78a26.47 26.47 0 0 0 4.17-1.74l4.8 4.8 11.31-11.31-4.79-4.79a26.47 26.47 0 0 0 1.71-4.18h6.8v-16h-6.78a26.47 26.47 0 0 0-1.74-4.17l4.81-4.8-11.31-11.31-4.79 4.79a26.47 26.47 0 0 0-4.18-1.71v-6.8h-16zm8 19a13 13 0 0 1 13 13 13 13 0 0 1-13 13 13 13 0 0 1-13-13 13 13 0 0 1 13-13z"/>
                             </svg>
                         </button>
-                        <div className='flex invisible items-center opacity-0 z-10 select-none cursor-default text-xs scale-75 md:scale-100 lg:text-base peer-hover:visible peer-hover:opacity-100 peer-hover:translate-x-2 transition-all duration-500'>
+                        <div className='flex invisible items-center opacity-0 z-10 select-none cursor-default text-sm peer-hover:visible peer-hover:opacity-100 peer-hover:translate-x-2 transition-all duration-500'>
                             <div className='absolute -ml-2'>
                                 {getAdvancedBtnText()}
                             </div>
                         </div>
                     </div>
-                    <div id='advanced' hidden={!advancedVisible} className='text-lg p-4 space-y-2 md:text-xl lg:text-2xl'>
+                    <div id='advanced' hidden={!advancedVisible} className='text-xl p-4 space-y-2'>
                         <div className='flex flex-col items-center gap-2'>
                             <div>
                                 <label>

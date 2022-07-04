@@ -1,12 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import SearchBlock from './components/SearchBlock';
 import {Game, getGamesByMonth, isValidUsername, YearMonth} from "./utils"
-import ResultsBlock from "./components/ResultsBlock";
+import ResultsSection from "./components/ResultsSection";
 import ReactGA from "react-ga";
 
 export default function App() {
-
-    useEffect(() => {
+    React.useEffect(() => {
         ReactGA.pageview(window.location.pathname);
     });
 
@@ -63,9 +62,9 @@ export default function App() {
     }
 
     return (
-        <div className='flex flex-col items-center p-2'>
+        <div className='flex flex-col items-center p-2 min-h-screen justify-center'>
             <SearchBlock searchFormSubmissionHandler={handleSearch} expanded={isInInitialState} loading={loadingResults}/>
-            <ResultsBlock games={games} hidden={isInInitialState} lichessIDs={lichessIDs} lichessIDAdder={addLichessID}/>
+            <ResultsSection games={games} hidden={isInInitialState} lichessIDs={lichessIDs} lichessIDAdder={addLichessID}/>
         </div>
     );
 }

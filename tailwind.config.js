@@ -4,9 +4,30 @@ module.exports = {
     './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {
-      fontFamily: {
+    screens: {
+      '2xs': '384px',
+      'xs': '512px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
 
+    extend: {
+      fontSize: {
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
+        '10': '10px',
+        '12': '12px',
+        '14': '14px',
+        '16': '16px',
+        '18': '18px',
+        '20': '20px',
+        '22': '22px',
+        '24': '24px',
+        '26': '26px'
       },
       width: {
         '100': '25rem',
