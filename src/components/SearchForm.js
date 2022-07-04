@@ -49,9 +49,9 @@ export default function SearchForm(props) {
                     <div className='inline-flex gap-3 w-fit items-center'>
                         <div className='inline-flex items-center rounded-2xl whitespace-nowrap'>
                             <label>
-                                <input type='text' minLength='3' maxLength='20' spellCheck='false' autoCapitalize='false' autoCorrect='false' name='username' className='flex w-fit h-fit whitespace-nowrap bg-white rounded-l-2xl outline-none p-3 text-xl transition-all duration-500' placeholder='Chess.com username'/>
+                                <input type='text' minLength='3' maxLength='20' spellCheck='false' autoCapitalize='false' autoCorrect='false' name='username' className='flex w-fit h-fit whitespace-nowrap bg-white rounded-l-2xl rounded-r-none outline-none p-3 text-xl transition-all duration-500' placeholder='Chess.com username'/>
                             </label>
-                            <div className='bg-teal-800 hover:bg-teal-900 rounded-r-2xl'>
+                            <span className='bg-teal-800 hover:bg-teal-900 rounded-r-2xl'>
                                 <button type='submit' disabled={props.loading} className='flex justify-center font-light h-fit whitespace-nowrap text-white outline-none rounded-r-2xl p-3 text-xl w-44 transition-all duration-500'>
                                 <span hidden={!props.loading}>
                                     <svg role="status"
@@ -66,7 +66,7 @@ export default function SearchForm(props) {
                                     Retrieve games
                                 </span>
                                 </button>
-                            </div>
+                            </span>
 
                         </div>
                         <button type='button' className='peer group text-gray-600 z-20 h-fit rounded-full w-6 transition-all duration-500' onClick={toggleAdvanced}>

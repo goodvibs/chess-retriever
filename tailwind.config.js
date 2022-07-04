@@ -4,6 +4,11 @@ module.exports = {
     './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
+    minHeight: {
+      'screen-1/4': '25vh',
+      'screen-1/2': '50vh',
+      'screen-3/4': '75vh'
+    },
     screens: {
       '2xs': '384px',
       'xs': '512px',

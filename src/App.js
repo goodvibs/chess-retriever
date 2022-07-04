@@ -62,7 +62,7 @@ export default function App() {
     }
 
     return (
-        <div className='flex flex-col items-center p-2 min-h-screen justify-center'>
+        <div className='flex flex-col items-center min-h-screen-3/4 justify-center p-5 text-teal-800'>
             <SearchBlock searchFormSubmissionHandler={handleSearch} expanded={isInInitialState} loading={loadingResults}/>
             <ResultsSection games={games} hidden={isInInitialState} lichessIDs={lichessIDs} lichessIDAdder={addLichessID}/>
         </div>

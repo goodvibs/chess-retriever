@@ -58,8 +58,8 @@ export default function Results(props) {
         return (
             <div className='flex flex-col gap-5 bg-amber-300 rounded-2xl w-full p-3 my-1 items-center'>
                 <div className='flex w-full items-center justify-around'>
-                    <span className='flex justify-around'>
-                        <span className='flex flex-col w-16 items-center text-sm font-semibold'>
+                    <span className='flex justify-around text-sm font-semibold'>
+                        <span className='flex flex-col w-16 items-center'>
                         <div>
                             {months[game.endUTC.getMonth()] + ' ' + game.endUTC.getDate() + ','}
                         </div>
@@ -67,7 +67,7 @@ export default function Results(props) {
                             {game.endUTC.getFullYear()}
                         </div>
                         </span>
-                        <span className='flex flex-col w-16 items-center text-sm font-semibold'>
+                        <span className='flex flex-col w-16 items-center'>
                             <div>
                                 {game.timeControl.toString()}
                             </div>
