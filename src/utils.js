@@ -1,38 +1,46 @@
-import ReactGA from 'react-ga'
+import * as errors from "./errors";
 
-class BaseError extends Error {
-    constructor(message) {
-        super(message);
-        ReactGA.exception({
-            description: message,
-            fatal: false
-        });
-        this.name = 'BaseError';
-    }
-}
+export const MONTHS = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+];
 
-class InvalidYearMonthError extends BaseError {
-    constructor(message) {
-        super(message);
-        this.name = 'YearMonthError';
-    }
-}
-
-class InvalidGameAttrValueError extends BaseError {
-    constructor(message) {
-        super(message);
-        this.name = 'InvalidGameAttrValueError';
-    }
-}
+export const MONTHS_3L = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+];
 
 export class YearMonth {
+    year;
+    month;
+
     static fromDate(date) {
         return new YearMonth(date.getFullYear(), date.getMonth() + 1);
     }
 
     constructor(year, month) {
         if (month < 1 || month > 12) {
-            throw new InvalidYearMonthError(`Invalid month: ${month}`);
+            throw new errors.InvalidYearMonthError(`Invalid month: ${month}`);
         }
         this.year = year;
         this.month = month;
@@ -150,6 +158,9 @@ export class Game {
                 return this.val + ' min';
             }
             if (this.units === 'days') {
+                if (this.units === 1) {
+                    return this.val + ' day';
+                }
                 return this.val + ' days';
             }
             else {
@@ -194,17 +205,10 @@ export class PlayerGame extends Game {
     }
 }
 
-class InvalidResponseError extends BaseError {
-    constructor(message) {
-        super(message);
-        this.name = 'InvalidResponseError';
-    }
-}
-
 export async function fetchJSON(url) {
     const response = await fetch(url);
     if (!response.ok) {
-        throw new InvalidResponseError(`Response not ok: ${await response.text()}`);
+        throw new errors.InvalidResponseError(`Response not ok: ${await response.text()}`);
     }
     return response.json(); // returns a promise, which resolves to this data value
 }
@@ -215,41 +219,13 @@ export function isValidUsername(username) {
     return re.test(username);
 }
 
-class InvalidUsernameError extends BaseError {
-    constructor(message) {
-        super(message);
-        this.name = 'InvalidUsernameError';
-    }
-}
-
-class InvalidDateError extends BaseError {
-    constructor(message) {
-        super(message);
-        this.name = 'InvalidDateError';
-    }
-}
-
-class InvalidTimeClassError extends InvalidGameAttrValueError {
-    constructor(message) {
-        super(message);
-        this.name = 'InvalidTimeClassError';
-    }
-}
-
-class InvalidTerminationCauseError extends InvalidGameAttrValueError {
-    constructor(message) {
-        super(message);
-        this.name = 'InvalidTerminationCauseError';
-    }
-}
-
 export async function getGamesByMonth(username,
                                       yearMonth=YearMonth.fromDate(new Date()),
                                       timeClasses = [Game.TIME_CLASSES.BULLET, Game.TIME_CLASSES.BLITZ, Game.TIME_CLASSES.RAPID, Game.TIME_CLASSES.DAILY]
                                       ) {
     const today = YearMonth.fromDate(new Date());
     if (yearMonth.valueOf() > today.valueOf()) {
-        throw new InvalidDateError(`Invalid date: ${yearMonth.toString()}`)
+        throw new errors.InvalidDateError(`Invalid date: ${yearMonth.toString()}`)
     }
     let playerGames = [];
     const url = `https://api.chess.com/pub/player/${username}/games/${yearMonth.year}/${yearMonth.getMM()}`;
@@ -269,7 +245,7 @@ export async function getGamesByMonth(username,
                 daily: Game.TIME_CLASSES.DAILY
             };
             if (!(game.time_class in TIME_CLASS_CODES)) {
-                throw new InvalidTimeClassError(`Invalid time class: ${game.time_class}`);
+                throw new errors.InvalidTimeClassError(`Invalid time class: ${game.time_class}`);
             }
             const timeClass = TIME_CLASS_CODES[game.time_class];
             if (!timeClasses.includes(timeClass)) {
@@ -317,7 +293,7 @@ export async function getGamesByMonth(username,
                 terminationCause = DRAW_CODES[game.white.result];
             }
             else {
-                throw new InvalidTerminationCauseError(`Invalid termination cause: {white result: ${game.white.result}, black result: ${game.black.result}}`);
+                throw new errors.InvalidTerminationCauseError(`Invalid termination cause: {white result: ${game.white.result}, black result: ${game.black.result}}`);
             }
             const isRated = game.isRated;
             const white = new Game.Player(game.white.username, game.white.rating);
@@ -331,7 +307,9 @@ export async function getGamesByMonth(username,
     });
     return playerGames;
 }
+
 /*
+STORAGE:
 export async function getGamesByMonth(username,
                                       since=YearMonth.fromDate(new Date()),
                                       until=YearMonth.fromDate(new Date()),

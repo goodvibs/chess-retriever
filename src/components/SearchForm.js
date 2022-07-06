@@ -1,5 +1,6 @@
 import React from 'react';
 import {YearMonth} from "../utils";
+import {MONTHS} from '../utils';
 
 export default function SearchForm(props) {
 
@@ -24,21 +25,7 @@ export default function SearchForm(props) {
         </label>
     ));
 
-    const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-    ];
-    const monthOptions = months.map((month, index) => (
+    const monthOptions = MONTHS.map((month, index) => (
         <option value={index + 1}>{month}</option>
     ));
 

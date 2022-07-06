@@ -1,22 +1,9 @@
 import React from "react";
 import {Game} from "../utils";
+import {MONTHS_3L} from  '../utils';
 
 export default function Results(props) {
     return props.games.map((game, gameIndex) => {
-        const months = [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ];
         const timeClasses = [
             'bullet',
             'blitz',
@@ -56,12 +43,12 @@ export default function Results(props) {
         }
 
         return (
-            <div className='flex flex-col gap-5 bg-amber-300 rounded-2xl w-full p-3 my-1 items-center'>
+            <div className='flex flex-col gap-5 bg-amber-300 rounded-2xl w-full p-3 mb-2 items-center'>
                 <div className='flex w-full items-center justify-around'>
                     <span className='flex justify-around text-sm font-semibold'>
                         <span className='flex flex-col w-16 items-center'>
                         <div>
-                            {months[game.endUTC.getMonth()] + ' ' + game.endUTC.getDate() + ','}
+                            {MONTHS_3L[game.endUTC.getMonth()] + ' ' + game.endUTC.getDate() + ','}
                         </div>
                         <div>
                             {game.endUTC.getFullYear()}

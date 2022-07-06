@@ -13,6 +13,11 @@ export default function App() {
 
     const [isInInitialState, setIsInInitialState] = React.useState(true);
 
+    const [searchParams, setSearchParams] = React.useState({
+        username: null,
+        yearMonth: null
+    });
+
     const [games, setGames] = React.useState([]);
 
     const [lichessIDs, setLichessIDs] = React.useState({});
@@ -51,10 +56,18 @@ export default function App() {
         });
 
         getGamesByMonth(username, yearMonth, allowedTimeClasses).then(res => {
+            setSearchParams({
+                username: username,
+                yearMonth: yearMonth
+            });
             setGames(res);
             setIsInInitialState(false);
             setLoading(false);
         }).catch(() => {
+            setSearchParams({
+                username: username,
+                yearMonth: yearMonth
+            });
             setGames([]);
             setIsInInitialState(false);
             setLoading(false);
@@ -64,7 +77,7 @@ export default function App() {
     return (
         <div className='flex flex-col items-center min-h-screen-3/4 justify-center p-5 text-teal-800'>
             <SearchBlock searchFormSubmissionHandler={handleSearch} expanded={isInInitialState} loading={loadingResults}/>
-            <ResultsSection games={games} hidden={isInInitialState} lichessIDs={lichessIDs} lichessIDAdder={addLichessID}/>
+            <ResultsSection searchParams={searchParams} games={games} hidden={isInInitialState} lichessIDs={lichessIDs} lichessIDAdder={addLichessID}/>
         </div>
     );
 }
