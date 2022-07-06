@@ -22,7 +22,7 @@ export default function ResultsSection(props) {
 
     return (
         <div hidden={props.hidden} className='w-full'>
-            <div className='flex justify-center items-center p-5 gap-6 whitespace-nowrap'>
+            <div className='flex justify-center items-center py-5 gap-6 whitespace-nowrap'>
                 <span className='flex justify-center font-light rounded-2xl text-teal-800 text-lg'>
                     <span className='font-semibold'>{gameCountText}</span>&nbsp;retrieved from&nbsp;{dateTag}&nbsp;for&nbsp;"<span className='font-bold'>{props.searchParams.username}</span>"
                 </span>

@@ -215,7 +215,7 @@ export async function fetchJSON(url) {
 
 export function isValidUsername(username) {
     // uncomment to disallow preceding or proceeding dashes/underscores: const re = /(?=^[a-zA-Z0-9][a-zA-Z0-9_-]{1,22}?[a-zA-Z0-9]$)(?=.*[a-zA-Z])(?=^(.(?!([-_]{2,})))*$)/;
-    const re = /(?=[a-zA-Z\d_-]{3,20}$)(?=^(.(?!([-_]{2,})))*$)/;
+    const re = /(?=[a-zA-Z\d_-]{3,25}$)(?=^(.(?!([-_]{2,})))*$)/;
     return re.test(username);
 }
 
