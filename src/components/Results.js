@@ -32,13 +32,16 @@ export default function Results(props) {
             'timeout vs. insufficient material',
             'fifty move rule'
         ];
-
         let iframe = <></>;
         if (gameIndex in props.lichessIDs) {
+            const lichessID = props.lichessIDs[gameIndex];
             iframe = (
-                <iframe title={`${game.player.username} vs. ${game.opponent.username}`} src={'https://lichess.org/embed/' + props.lichessIDs[gameIndex] + '?theme=auto&bg=auto'}
-                        className='rounded-2xl w-full h-96'>
-                </iframe>
+                <div className='flex flex-1 w-full flex-col'>
+                    <iframe title={`${game.player.username} vs. ${game.opponent.username}`} src={'https://lichess.org/embed/' + lichessID + '?theme=auto&bg=light'}
+                            className='rounded-t-2xl w-full h-96'>
+                    </iframe>
+                    <a className='flex bg-teal-800 rounded-b-2xl p-2 w-full justify-center text-white hover:bg-teal-900' target='_blank' href={`https://lichess.org/${lichessID}`} rel="noreferrer" >Open in Lichess</a>
+                </div>
             );
         }
 
